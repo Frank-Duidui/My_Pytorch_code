@@ -1,0 +1,49 @@
+# YOLOv5 🚀 by Ultralytics, GPL-3.0 license
+# Hyperparameters for low-augmentation COCO training from scratch
+# python train.py --batch 64 --cfg yolov5n6.yaml --weights '' --data coco.yaml --img 640 --epochs 300 --linear
+# See tutorials for hyperparameter evolution https://github.com/ultralytics/yolov5#tutorials
+
+# 优化器相关
+lr0: 0.01  # initial learning rate (SGD=1E-2, Adam=1E-3)  初始学习率
+lrf: 0.01  # final OneCycleLR learning rate (lr0 * lrf)  余弦退火超参数
+momentum: 0.937  # SGD momentum/Adam beta1  学习率动量
+weight_decay: 0.0005  # optimizer weight decay 5e-4  权重衰减系数
+
+# 预热学习相关
+warmup_epochs: 3.0  # warmup epochs (fractions ok)  预热学习epoch
+warmup_momentum: 0.8  # warmup initial momentum  预热学习率动量
+warmup_bias_lr: 0.1  # warmup initial bias lr  预热学习率
+
+# 不同损失函数权重，以及其他损失函数相关内容
+box: 0.05  # box loss gain   giou损失的系数
+cls: 0.5  # cls loss gain  分类损失的系数
+cls_pw: 1.0  # cls BCELoss positive_weight  分类BCELoss中正样本的权重
+obj: 1.0  # obj loss gain (scale with pixels)  有无物体损失的系数
+obj_pw: 1.0  # obj BCELoss positive_weight  有无物体BCELoss中正样本的权重
+iou_t: 0.20  # IoU training threshold  标签与anchors的iou阈值iou training threshold
+
+# anchor锚框
+anchor_t: 4.0  # anchor-multiple threshold  标签的长h宽w/anchor的长h_a宽w_a阈值, 即h/h_a, w/w_a都要在(1/4.0, 4.0)之间
+# anchors: 3  # anchors per output layer (0 to ignore)
+
+# 数据增强相关 - 色彩转换
+fl_gamma: 0.0  # focal loss gamma (efficientDet default gamma=1.5)
+hsv_h: 0.015  # image HSV-Hue augmentation (fraction)  色调
+hsv_s: 0.7  # image HSV-Saturation augmentation (fraction)  饱和度
+hsv_v: 0.4  # image HSV-Value augmentation (fraction)  明度
+
+# 数据增强相关：旋转、平移、扭曲等
+degrees: 0.0  # image rotation (+/- deg)  旋转角度
+translate: 0.1  # image translation (+/- fraction)  水平和垂直平移
+scale: 0.5  # image scale (+/- gain)  缩放
+shear: 0.0  # image shear (+/- deg)  剪切
+perspective: 0.0  # image perspective (+/- fraction), range 0-0.001  透视变换参数
+
+# 数据增强相关 - 翻转
+flipud: 0.0  # image flip up-down (probability)   上下翻转概率
+fliplr: 0.5  # image flip left-right (probability)  左右翻转概率
+
+# 数据增强相关 - mosaic/mixup
+mosaic: 1.0  # image mosaic (probability)  进行mosaic的概率(一幅图像融合四幅图像)
+mixup: 0.0  # image mixup (probability)   进行mixup的概率(对两个样本-标签数据对按比例相加后生成新的样本-标签数据)
+copy_paste: 0.0  # segment copy-paste (probability)
